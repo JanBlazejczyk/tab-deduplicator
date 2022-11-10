@@ -1,0 +1,16 @@
+{
+    "name": "Tabs De-duplicator",
+    "description": "Extension that notifies when two or mare tabs with the same url are opened",
+    "version": "1.0.0",
+    "manifest_version": 3,
+    "permissions": [
+        "tabs", 
+        "storage"
+    ],
+    "action": {
+        "default_popup": "popup.html"
+    },
+    "background": {
+        "service_worker": "background.js"
+    }
+}
