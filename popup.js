@@ -9,8 +9,6 @@ chrome.storage.local.get('tabs', ({ tabs }) => {
         }
     });
 
-    console.log('mappedTabs', mappedTabs);
-
     // create an iterable and list all the tabs currently opened in the browser
     mappedTabs.forEach((mappedTab) => {
         const listItem = document.createElement('li');
