@@ -1,11 +1,9 @@
-let tabs = ['dummy tab'];
-
-// disable the extension on default
-chrome.action.disable();
+let tabs = [];
 
 const setTabs = () => {
     chrome.tabs.query({}).then((tabs) => {
-        chrome.storage.local.set({ tabs });
+      chrome.storage.local.set({ tabs });
+      toggleIcon(tabs);
     })
 };
 
@@ -23,31 +21,14 @@ const findDuplicates = (array) => {
   return duplicatedUrls;
 };
 
-const toggleIcon = () => {
-  chrome.storage.local.get('tabs', ({ tabs }) => {
-    const tabsUrls = tabs.map((tab) => tab.url);
-    const tabsHaveDuplicates = findDuplicates(tabsUrls).length > 0;
-
-    tabsHaveDuplicates ? chrome.action.enable() : chrome.action.disable();
-  })
+const toggleIcon = (tabs) => {
+  const tabsUrls = tabs.map((tab) => tab.url);
+  const tabsHaveDuplicates = findDuplicates(tabsUrls).length > 0;
+  tabsHaveDuplicates ? chrome.action.enable() : chrome.action.disable();
 };
 
 // event listeners
-chrome.runtime.onInstalled.addListener(() => {
-    chrome.storage.local.set({ tabs });
-});
-
-chrome.tabs.onCreated.addListener(() => {
-  setTabs();
-  checkDuplicates();
-});
-
-chrome.tabs.onRemoved.addListener(() => {
-  setTabs();
-  toggleIcon();
-});
-
-chrome.tabs.onUpdated.addListener(() => {
-  setTabs();
-  toggleIcon();
-});
+chrome.runtime.onInstalled.addListener(setTabs);
+chrome.tabs.onCreated.addListener(setTabs);
+chrome.tabs.onRemoved.addListener(setTabs);
+chrome.tabs.onUpdated.addListener(setTabs);
