@@ -1,5 +1,3 @@
-let tabs = [];
-
 const setTabs = (duplicatedTabs) => {
   chrome.storage.local.set({ duplicatedTabs });
 }
@@ -28,7 +26,6 @@ const toggleIcon = (tabs) => {
 
 const updateTabData = () => {
     chrome.tabs.query({}).then((tabs) => {
-      console.log(tabs);
       const duplicatedTabs = getDuplicateTabs(tabs);
       setTabs(duplicatedTabs);
       toggleIcon(tabs);
