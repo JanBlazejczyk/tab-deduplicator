@@ -11,9 +11,10 @@ const getDuplicateTabs = (tabs) => {
   
   // return each tab with duplicate just once
   for (let tab of tabs) {
-    if (duplicatedUrls.includes(tab.url)) {
+    let alreadyIncludedUrls = duplicatedTabs.map(tab => tab.url);
+    
+    if (duplicatedUrls.includes(tab.url) && !alreadyIncludedUrls.includes(tab.url)) {
       duplicatedTabs.push(tab);
-      break;
     }
   }
 
