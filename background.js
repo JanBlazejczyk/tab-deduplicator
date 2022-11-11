@@ -1,21 +1,34 @@
 let tabs = [];
 
-const setTabs = (tabs) => {
-  chrome.storage.local.set({ tabs });
+const setTabs = (duplicatedTabs) => {
+  chrome.storage.local.set({ duplicatedTabs });
 }
 
 const getDuplicateTabs = (tabs) => {
   const tabsUrls = tabs.map((tab) => tab.url);
   const duplicatedUrls = findDuplicates(tabsUrls);
+  const duplicatedTabs = [];
   
-  return tabs.filter(tab => duplicatedUrls.includes(tab.url));
-}
+  // return each tab with duplicate just once
+  for (let tab of tabs) {
+    if (duplicatedUrls.includes(tab.url)) {
+      duplicatedTabs.push(tab);
+      break;
+    }
+  }
+
+  return duplicatedTabs;
+};
+
+const toggleIcon = (tabs) => {
+  const tabsHaveDuplicates = getDuplicateTabs(tabs).length > 0;
+  tabsHaveDuplicates ? chrome.action.enable() : chrome.action.disable();
+};
 
 const updateTabData = () => {
-    chrome.tabs.query({}).then((tabs) => { // TODO: check if will work without the empty object
+    chrome.tabs.query({}).then((tabs) => {
       const duplicatedTabs = getDuplicateTabs(tabs);
       setTabs(duplicatedTabs);
-      setTabs(tabs); // TODO: is this needed?
       toggleIcon(tabs);
     })
 };
@@ -34,15 +47,7 @@ const findDuplicates = (array) => {
   return duplicatedUrls;
 };
 
-const toggleIcon = (tabs) => {
-  const tabsUrls = tabs.map((tab) => tab.url);
-  const tabsHaveDuplicates = findDuplicates(tabsUrls).length > 0;
-  tabsHaveDuplicates ? chrome.action.enable() : chrome.action.disable();
-};
-
 // event listeners
-// TODO: check if onUpdated will be enough without created and removed
 chrome.runtime.onInstalled.addListener(updateTabData);
-chrome.tabs.onCreated.addListener(updateTabData);
-chrome.tabs.onRemoved.addListener(updateTabData);
 chrome.tabs.onUpdated.addListener(updateTabData);
+chrome.tabs.onRemoved.addListener(updateTabData);

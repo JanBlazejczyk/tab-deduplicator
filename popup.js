@@ -1,9 +1,7 @@
 const tabsList = document.querySelector('.tabs-list');
 
-// TODO: here get only duplicated tabs
-chrome.storage.local.get('tabs', ({ tabs }) => {
-    // only include the tabs that are duplicated
-    const mappedTabs = tabs.map((tab) => {
+chrome.storage.local.get('duplicatedTabs', ({ duplicatedTabs }) => {
+    const mappedTabs = duplicatedTabs.map((tab) => {
         return {
             title: tab.title,
             url: tab.url
@@ -16,6 +14,5 @@ chrome.storage.local.get('tabs', ({ tabs }) => {
         listItem.classList.add('tabs-list__item');
         listItem.innerHTML = `<span>${mappedTab.title}</span>`
         tabsList.appendChild(listItem);
-    })
+    });
 });
-
