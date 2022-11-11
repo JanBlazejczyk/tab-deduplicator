@@ -12,7 +12,7 @@ const getDuplicateTabs = (tabs) => {
   // return each tab with duplicate just once
   for (let tab of tabs) {
     let alreadyIncludedUrls = duplicatedTabs.map(tab => tab.url);
-    
+
     if (duplicatedUrls.includes(tab.url) && !alreadyIncludedUrls.includes(tab.url)) {
       duplicatedTabs.push(tab);
     }
@@ -28,6 +28,7 @@ const toggleIcon = (tabs) => {
 
 const updateTabData = () => {
     chrome.tabs.query({}).then((tabs) => {
+      console.log(tabs);
       const duplicatedTabs = getDuplicateTabs(tabs);
       setTabs(duplicatedTabs);
       toggleIcon(tabs);
