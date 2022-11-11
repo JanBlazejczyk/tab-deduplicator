@@ -1,8 +1,21 @@
 let tabs = [];
 
-const setTabs = () => {
-    chrome.tabs.query({}).then((tabs) => {
-      chrome.storage.local.set({ tabs });
+const setTabs = (tabs) => {
+  chrome.storage.local.set({ tabs });
+}
+
+const getDuplicateTabs = (tabs) => {
+  const tabsUrls = tabs.map((tab) => tab.url);
+  const duplicatedUrls = findDuplicates(tabsUrls);
+  
+  return tabs.filter(tab => duplicatedUrls.includes(tab.url));
+}
+
+const updateTabData = () => {
+    chrome.tabs.query({}).then((tabs) => { // TODO: check if will work without the empty object
+      const duplicatedTabs = getDuplicateTabs(tabs);
+      setTabs(duplicatedTabs);
+      setTabs(tabs); // TODO: is this needed?
       toggleIcon(tabs);
     })
 };
@@ -28,7 +41,8 @@ const toggleIcon = (tabs) => {
 };
 
 // event listeners
-chrome.runtime.onInstalled.addListener(setTabs);
-chrome.tabs.onCreated.addListener(setTabs);
-chrome.tabs.onRemoved.addListener(setTabs);
-chrome.tabs.onUpdated.addListener(setTabs);
+// TODO: check if onUpdated will be enough without created and removed
+chrome.runtime.onInstalled.addListener(updateTabData);
+chrome.tabs.onCreated.addListener(updateTabData);
+chrome.tabs.onRemoved.addListener(updateTabData);
+chrome.tabs.onUpdated.addListener(updateTabData);
