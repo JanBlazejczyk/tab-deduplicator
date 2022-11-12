@@ -18,11 +18,10 @@ chrome.storage.local.get('duplicatedTabs', ({ duplicatedTabs }) => {
     duplicatedTabs.forEach((tab) => {
         const listItem = document.createElement('li');
         listItem.classList.add('tabs-list__item');
-
-        listItem.innerHTML = `<span>${tab.title}</span><button id=${tab.id}>x</button>`;
-
+        listItem.setAttribute('id', tab.id)
+        listItem.innerHTML = `<span>${tab.title}</span>`;
         tabsList.appendChild(listItem);
-        const button = document.getElementById(`${tab.id}`);
-        button.addEventListener('click', () => closeDuplicates(tab.url));
+        const tabItem = document.getElementById(`${tab.id}`);
+        tabItem.addEventListener('click', () => closeDuplicates(tab.url));
     });
 });
