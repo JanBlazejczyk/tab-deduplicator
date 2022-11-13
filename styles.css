@@ -1,13 +1,16 @@
 body {
-  background-color: #fefae0;
+  background-color: #f1faee;
 }
-
 .container {
-  width: 400px;
+  width: 350px;
   height: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.heading {
+  font-color: #457b9d;
 }
 
 .tabs-list {
@@ -17,7 +20,7 @@ body {
 }
 
 .tabs-list__item {
-  border: solid black 1px;
+  width: 280px;
   border-radius: 0.5em;
   padding: 0.8rem;
   margin: 0.5rem;
@@ -25,7 +28,8 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #e9edc9;
+  background-color: #a8dadc;
+  font-color: #457b9d;
 }
 
 .close-tab-btn {
@@ -35,7 +39,7 @@ body {
   border: none;
 }
 
-.close-tab-btn:hover {
-  background-color: red;
+.tabs-list__item:hover {
+  background-color: #e63946;
   opacity: 0.8;
 }
