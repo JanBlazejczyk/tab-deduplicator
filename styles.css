@@ -1,6 +1,7 @@
 body {
   background-color: #f1faee;
 }
+
 .container {
   width: 350px;
   height: auto;
@@ -22,24 +23,22 @@ body {
 .tabs-list__item {
   width: 280px;
   border-radius: 0.5em;
-  padding: 0.8rem;
-  margin: 0.5rem;
+  padding: 15px;
+  margin: 10px;
   cursor: pointer;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   background-color: #a8dadc;
   font-color: #457b9d;
 }
 
-.close-tab-btn {
-  cursor: pointer;
-  margin-left: 0.5rem;
-  border-radius: 0.5em;
-  border: none;
-}
-
 .tabs-list__item:hover {
   background-color: #e63946;
   opacity: 0.8;
+}
+
+.tab-icon {
+  width: 15px;
+  height: 15px;
+  margin-right: 10px;
 }

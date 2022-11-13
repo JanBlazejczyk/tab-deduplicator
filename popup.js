@@ -1,8 +1,7 @@
 const tabsList = document.querySelector('.tabs-list');
 
-const closeDuplicates = (url) => {
+const closeDuplicates = ({ url, id }) => {
     chrome.tabs.query({ url }).then((tabs) => {
-        // active tab cannot be on the list
         const activeTab = tabs.find(tab => tab.active);
         const tabsToClose = activeTab ? tabs.filter(tab => !tab.active).map(tab => tab.id) : tabs.slice(1).map(tab => tab.id); 
         chrome.tabs.remove(tabsToClose);
@@ -19,9 +18,9 @@ chrome.storage.local.get('duplicatedTabs', ({ duplicatedTabs }) => {
         const listItem = document.createElement('li');
         listItem.classList.add('tabs-list__item');
         listItem.setAttribute('id', tab.id)
-        listItem.innerHTML = `<span>${tab.title}</span>`;
+        listItem.innerHTML = `<img class="tab-icon" src=${tab.favIconUrl}><span>${tab.title}</span>`;
         tabsList.appendChild(listItem);
         const tabItem = document.getElementById(`${tab.id}`);
-        tabItem.addEventListener('click', () => closeDuplicates(tab.url));
+        tabItem.addEventListener('click', () => closeDuplicates(tab));
     });
 });
