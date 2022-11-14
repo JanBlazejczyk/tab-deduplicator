@@ -1,0 +1,22 @@
+{
+  "name": "tab-unclutter",
+  "version": "1.0.0",
+  "description": "Extension that notifies when two or mare tabs with the same url are opened",
+  "main": "background.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JanBlazejczyk/tab-deduplicator.git"
+  },
+  "author": "JanBłażejczyk",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JanBlazejczyk/tab-deduplicator/issues"
+  },
+  "homepage": "https://github.com/JanBlazejczyk/tab-deduplicator#readme",
+  "devDependencies": {
+    "eslint": "^8.27.0"
+  }
+}

@@ -1,5 +1,5 @@
 {
-    "name": "Tabs De-duplicator",
+    "name": "Tabs Unclutter",
     "description": "Extension that notifies when two or mare tabs with the same url are opened",
     "version": "1.0.0",
     "manifest_version": 3,

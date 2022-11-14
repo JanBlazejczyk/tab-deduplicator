@@ -11,7 +11,7 @@ body {
 }
 
 .heading {
-  color: #457b9d;
+  color: #1d3557;
 }
 
 .tabs-list {
@@ -29,7 +29,7 @@ body {
   display: flex;
   align-items: center;
   background-color: #a8dadc;
-  color: #457b9d;
+  color: #1d3557;
 }
 
 .tabs-list__item:hover {

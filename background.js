@@ -1,12 +1,12 @@
 const setTabs = (duplicatedTabs) => {
   chrome.storage.local.set({ duplicatedTabs });
-}
+};
 
 const getDuplicateTabs = (tabs) => {
   const tabsUrls = tabs.map((tab) => tab.url);
   const duplicatedUrls = findDuplicates(tabsUrls);
   const duplicatedTabs = [];
-  
+
   for (let tab of tabs) {
     let alreadyIncludedUrls = duplicatedTabs.map(tab => tab.url);
 
@@ -24,11 +24,11 @@ const toggleIcon = (tabs) => {
 };
 
 const updateTabData = () => {
-    chrome.tabs.query({}).then((tabs) => {
-      const duplicatedTabs = getDuplicateTabs(tabs);
-      setTabs(duplicatedTabs);
-      toggleIcon(tabs);
-    })
+  chrome.tabs.query({}).then((tabs) => {
+    const duplicatedTabs = getDuplicateTabs(tabs);
+    setTabs(duplicatedTabs);
+    toggleIcon(tabs);
+  });
 };
 
 const findDuplicates = (tabsUrls) => {
@@ -36,9 +36,9 @@ const findDuplicates = (tabsUrls) => {
 
   const duplicatedUrls = tabsUrls.filter(item => {
     if (uniqueUrls.has(item)) {
-        uniqueUrls.delete(item);
+      uniqueUrls.delete(item);
     } else {
-        return item;
+      return item;
     }
   });
 
