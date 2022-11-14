@@ -7,7 +7,6 @@ const getDuplicateTabs = (tabs) => {
   const duplicatedUrls = findDuplicates(tabsUrls);
   const duplicatedTabs = [];
   
-  // return each tab with duplicate just once
   for (let tab of tabs) {
     let alreadyIncludedUrls = duplicatedTabs.map(tab => tab.url);
 
@@ -32,10 +31,10 @@ const updateTabData = () => {
     })
 };
 
-const findDuplicates = (array) => {
-  const uniqueUrls = new Set(array);
+const findDuplicates = (tabsUrls) => {
+  const uniqueUrls = new Set(tabsUrls);
 
-  const duplicatedUrls = array.filter(item => {
+  const duplicatedUrls = tabsUrls.filter(item => {
     if (uniqueUrls.has(item)) {
         uniqueUrls.delete(item);
     } else {

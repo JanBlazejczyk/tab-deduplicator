@@ -1,11 +1,11 @@
 const tabsList = document.querySelector('.tabs-list');
 
-const closeDuplicates = ({ url, id }) => {
-    chrome.tabs.query({ url }).then((tabs) => {
-        const activeTab = tabs.find(tab => tab.active);
-        const tabsToClose = activeTab ? tabs.filter(tab => !tab.active).map(tab => tab.id) : tabs.slice(1).map(tab => tab.id); 
-        chrome.tabs.remove(tabsToClose);
-        location.reload();
+const closeDuplicates = ({ url }) => {
+    chrome.tabs.query({}).then((tabs) => {
+        const tabsWithUrl = tabs.filter(tab => tab.url === url);
+        const activeTab = tabsWithUrl.find(tab => tab.active);
+        const tabsToClose = activeTab ? tabsWithUrl.filter(tab => !tab.active).map(tab => tab.id) : tabsWithUrl.slice(1).map(tab => tab.id);
+        chrome.tabs.remove(tabsToClose).then(() => location.reload());  
     })
 };
 
